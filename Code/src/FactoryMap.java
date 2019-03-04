@@ -1,25 +1,24 @@
+//package src;
+
 import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.TreeMap;
 
 class FactoryMap {
 
-  public Map getImplementation(int implementation) {
+  public Map<String, String> getMap(int n) {
 
-    switch(implementation){
-      case 1:
-        return new HashM();
-        break;
+    if (n == 1) {
+      return new HashMap<>();
+    }
 
-      case 2:
-        return new TreeM();
-        break;
+    else if (n == 2) {
+      return new LinkedHashMap<>();
+    }
 
-      case 3:
-        return new LinkedH();
-        break;
-
-      default:
-        return null;
-        break;
+    else {
+      return new TreeMap<>();
     }
   }
 }

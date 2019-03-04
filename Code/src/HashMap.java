@@ -1,12 +1,12 @@
+//package src;
+
+import src.AMap;
+
 import java.util.*;
 
-class HashMap<K, V> implements iMap<K, V>{
+class HashMap<K, V> extends AMap<K, V> {
 
-  private HashMap<K, V> data;
-
-  public HashM() {
-    this.data = new HashMap();
-  }
+  private MapHash<K , V> data;
 
   public int size() {
     return data.size();
@@ -16,45 +16,45 @@ class HashMap<K, V> implements iMap<K, V>{
     return data.isEmpty;
   }
 
-  public boolean containsKey(K k) {
+  public boolean containsKey(Object k) {
     return data.containsKey;
   }
 
-  public boolean containsValue(V v) {
+  public boolean containsValue(Object v) {
     return data.containsValue;
   }
 
-  public V get(K k) {
-    return datos.get(k);
+  public V get(Object k) {
+    return data.get(k);
   }
 
   public V put(K k, V v){
-    V object = datos.put(k, v);
+    V object = data.put(k, v);
     return object;
   }
 
-  public V remove(K k){
-    V object = datos.remove(k);
+  public V remove(Object k){
+    V object = data.remove(k);
     return object;
   }
 
   public boolean equals(Object other) {
-    return datos.equals(other);
+    return data.equals(other);
   }
 
   public Set<K> keySet() {
-    return datos.keySet();
+    return data.keySet();
   }
 
   public void show() {
-    Set<K> keys = datos.keySet();
+    Set<K> keys = data.keySet();
     for (K key : keys) {
-      System.out.println("Carta: " + key + " - Tipo: " + datos.get(key));
+      System.out.println("Carta: " + key + " - Tipo: " + data.get(key));
     }
   }
 
   public void showOrder() {
-    Set<K> keys = datos.keySet();
+    Set<K> keys = data.keySet();
     System.out.println("Cartas de tipo Monstruo: ");
     for (K key : keys) {
       if (key.equals("Monstruo")) {
@@ -75,5 +75,27 @@ class HashMap<K, V> implements iMap<K, V>{
       System.out.println(key);
       }
     }
+  }
+
+  public void putAll(Map<? extends K, ? extends V> other){
+    data.putAll(other);
+  }
+
+  public void clear(){
+    data.clear();
+  }
+
+  public Collection<V> values() {
+    return data;
+  }
+
+  public Set<Entry<K,V>> entrySet()
+  {
+    return data.entrySet();
+  }
+
+  public int hashCode()
+  {
+    return data.hashCode();
   }
 }

@@ -1,3 +1,4 @@
+//package src;
 /*
  *  Autor: Luis Pedro Cuéllar - 18220
  *  Fecha: 03/03/2019
@@ -19,8 +20,8 @@ public class Main {
 
     Scanner input = new Scanner(System.in);
     FactoryMap FM = new FactoryMap();
-    Map mainMap;
-    Map mainCollection;
+    Map mainMap = null;
+    Map mainCollection = null;
 
     System.out.println(" *** BIENVENIDO AL DECK DE CARTAS *** ");
     System.out.println(" ");
@@ -39,22 +40,23 @@ public class Main {
       System.out.println("3. Usar LinkedHashMap");
       System.out.println("-------------------------------------------------------");
       System.out.print("Ingrese el número de la opción que desea hacer: ");
-      int mapMenu = input.nextInt();
+      int mapMenu;
+      mapMenu = input.nextInt();
 
       switch (mapMenu) {
         case 1:
-          mainMap = FM.getImplementation(mapMenu);
-          mainCollection = FM.getImplementation(mapMenu);
+          mainMap = FM.getMap(mapMenu);
+          mainCollection = FM.getMap(mapMenu);
           break;
 
         case 2:
-          mainMap = FM.getImplementation(mapMenu);
-          mainCollection = FM.getImplementation(mapMenu);
+          mainMap = FM.getMap(mapMenu);
+          mainCollection = FM.getMap(mapMenu);
           break;
 
         case 3:
-          mainMap = FM.getImplementation(mapMenu);
-          mainCollection = FM.getImplementation(mapMenu);
+          mainMap = FM.getMap(mapMenu);
+          mainCollection = FM.getMap(mapMenu);
           break;
 
         default:
@@ -71,7 +73,7 @@ public class Main {
         System.out.println("1. Agregar una carta a su colección");
         System.out.println("2. Ver su colección");
         System.out.println("3. Ver cartas del juego");
-  	    System.out.println("4. Salir del programa");
+        System.out.println("4. Salir del programa");
         System.out.println("-------------------------------------------------------");
         System.out.print("Ingrese el número de la opción que desea hacer: ");
         menu = input.nextInt();
@@ -84,18 +86,10 @@ public class Main {
         System.out.println(" ");
         FileReader file = new FileReader(location);
         BufferedReader reader = new BufferedReader(file);
-        ArrayList<String> text = new ArrayList<String>();
         String line = reader.readLine();
 
-        while(line != null) {
-          text.add(line);
-          line = reader.readLine();
-        }
-
-        Object[] Text = text.toArray();
-
-        for (int i = 0;i < text.size(); i++) {
-          String[] Cards = Text[i].split("[|]", 2);
+        while (line != null) {
+          String[] Cards = line.split("[|]", 2);
           String key = Cards[0];
           String value = Cards[1];
           mainMap.put(key, value);
@@ -103,16 +97,14 @@ public class Main {
 
         reader.close();
 
-        switch(menu) {
+        switch (menu) {
           case 1:
             System.out.println("Ingrese el nombre de la carta que desea agregar: ");
             String name = input.nextLine();
             if (mainMap.containsKey(name)) {
               mainMap.put(name, mainMap.get(name));
               System.out.println("La carta " + name + ", ha sido agregada!");
-            }
-
-            else {
+            } else {
               System.out.println("No se ha encontrado la carta, revisar que se esté ingresando bien!");
             }
             break;
@@ -130,26 +122,52 @@ public class Main {
               System.out.print("Ingrese el número de la opción que desea hacer: ");
               userMenu = input.nextInt();
 
-              switch(userMenu) {
+              switch (userMenu) {
                 case 1:
                   System.out.println(" ");
                   System.out.println("Ingrese el nombre de la carta que desea buscar: ");
                   String search = input.nextLine();
                   if (mainCollection.containsKey(search)) {
-                    System.out.println("La carta " + name + ", es de tipo " + mainCollection.get(name));
-                  }
-
-                  else {
+                    System.out.println("La carta " + search + ", es de tipo " + mainCollection.get(search));
+                  } else {
                     System.out.println("No se ha encontrado la carta, revisar que se esté ingresando bien!");
                   }
                   break;
 
                 case 2:
-                  mainCollection.show();
+                  for (Map.Entry<String, String> entradas : mainCollection.entrySet()) {
+                    String key = entradas.getKey();
+                    String value = entradas.getValue();
+                    System.out.println(key, value);
+                  }
                   break;
 
                 case 3:
-                  mainCollection.showOrder();
+                  for (Map.Entry<String, String> entradas : mainCollection.entrySet()) {
+                    String key = entradas.getKey();
+                    String value = entradas.getValue();
+
+                    if (value.equals("Monstruo")){
+                      ArrayList<String>Montruos = new ArrayList<>();
+                      Montruos.add(key + value);
+                      System.out.println(Montruos.toString());
+
+                    }
+
+                    else if (value.equals("Hechizo")){
+                      ArrayList<String>Hechizo = new ArrayList<>();
+                      Hechizo.add(key + value);
+                      System.out.println(Hechizo.toString());
+
+                    }
+
+                    else{
+                      ArrayList<String>Trampa = new ArrayList<>();
+                      Trampa.add(key + value);
+                      System.out.println(Trampa.toString());
+                    }
+
+                  }
                   break;
 
                 case 4:
@@ -160,8 +178,8 @@ public class Main {
                   System.out.println("Ingrese una opción válida!");
                   break;
               }
-          }
-        break;
+            }
+            break;
 
           case 3:
             int gameCards = 0;
@@ -173,15 +191,45 @@ public class Main {
               System.out.println("3. Salir del programa");
               System.out.println("-------------------------------------------------------");
               System.out.print("Ingrese el número de la opción que desea hacer: ");
-              gameCards = input.next();
+              gameCards = input.nextInt();
 
-              switch(gameCards) {
+              switch (gameCards) {
                 case 1:
-                  mainMap.show();
+                  for (Map.Entry<String, String> entradas : mainMap.entrySet()) {
+                    String key = entradas.getKey();
+                    String value = entradas.getValue();
+                    System.out.println(key, value);
+                  }
+
                   break;
 
                 case 2:
-                  mainMap.showOrder();
+                  for (Map.Entry<String, String> entradas : mainMap.entrySet()) {
+                    String key = entradas.getKey();
+                    String value = entradas.getValue();
+
+                    if (value.equals("Monstruo")){
+                      ArrayList<String>Montruos = new ArrayList<>();
+                      Montruos.add(key + value);
+                      System.out.println(Montruos.toString());
+
+                    }
+
+                    else if (value.equals("Hechizo")){
+                      ArrayList<String>Hechizo = new ArrayList<>();
+                      Hechizo.add(key + value);
+                      System.out.println(Hechizo.toString());
+
+                    }
+
+                    else{
+                      ArrayList<String>Trampa = new ArrayList<>();
+                      Trampa.add(key + value);
+                      System.out.println(Trampa.toString());
+                    }
+
+                  }
+
                   break;
 
                 case 3:
@@ -189,20 +237,21 @@ public class Main {
                   break;
 
                 default:
-                System.out.println("Ingrese una opción válida!");
+                  System.out.println("Ingrese una opción válida!");
+                  break;
+
+
+                case 4:
+                  menu = 4;
+                  break;
+
+                default:
+                  System.out.println("Ingrese una opción válida!");
+                  break;
+
                 break;
               }
             }
-          break;
-
-            case 4:
-              menu = 4;
-              break;
-
-            default:
-              System.out.println("Ingrese una opción válida!");
-              break;
-          break;
         }
       }
     }

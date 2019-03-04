@@ -1,4 +1,5 @@
-/**
+//package src;
+ /**
  * Associations establish a link between a key and a value.
  * An associative array or map is a structure that allows a disjoint
  * set of keys to become associated with an arbitrary set of values.
@@ -32,6 +33,8 @@
  * }
  * </pre>
  */
+ import org.jetbrains.annotations.Contract;
+
  import java.util.*;
 
 public interface iMap<K,V>
@@ -78,40 +81,14 @@ public interface iMap<K,V>
     public V remove(K k);
 
     /**
-     * @pre other is non-null
-     * @post all the mappings of other are installed in this map,
-     * overriding any conflicting maps
-     */
-    public void putAll(Map<K,V> other);
-
-    /**
-     * @post removes all map entries associated with this map
-     */
-    public void clear();
-
-    /**
      * @post returns a set of all keys associated with this map
      */
     public Set<K> keySet();
 
     /**
-     * @post returns a structure that contains the range of the map
-     */
-    public Structure<V> values();
-
-    /**
-     * @post returns a set of (key-value) pairs, generated from this map
-     */
-    public Set<Association<K,V>> entrySet();
-
-    /**
      * @pre other is non-null
      * @post returns true iff maps this and other are entry-wise equal
      */
+    @Contract(value = "null -> false", pure = true)
     public boolean equals(Object other);
-
-    /**
-     * @post returns a hash code associated with this structure
-     */
-    public int hashCode();
 }
